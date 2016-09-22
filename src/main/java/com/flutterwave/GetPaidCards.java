@@ -39,7 +39,7 @@ public class GetPaidCards {
         this.apiKey = apiKey;
         this.merchantId = merchantId;
         this.baseUrl = baseUrl;
-        hardner = new RequestHardner();
+        hardner = new RequestHardner(apiKey);
     }
 
     public MVVAResponse payWithCardDetails(MVVARequest request) throws InvalidRequestObjectException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, IOException, URISyntaxException {
@@ -48,7 +48,7 @@ public class GetPaidCards {
         if (!valid) {
             throw new InvalidRequestObjectException();
         } else {
-            request = hardner.MVVACardAPIHardner(request, apiKey);
+            request = hardner.MVVACardAPIHardner(request);
             response = Gateway.sendMCD(request, merchantId, baseUrl);
             return response;
         }
@@ -60,7 +60,7 @@ public class GetPaidCards {
         if (!valid) {
             throw new InvalidRequestObjectException();
         } else {
-            request = hardner.MVVACardAPIHardner(request, apiKey);
+            request = hardner.MVVACardAPIHardner(request);
             response = Gateway.sendMT(request, merchantId, baseUrl);
             return response;
         }
@@ -72,7 +72,7 @@ public class GetPaidCards {
         if (!valid) {
             throw new InvalidRequestObjectException();
         } else {
-            request = hardner.MVVACardAPIHardner(request, apiKey);
+            request = hardner.MVVACardAPIHardner(request);
             response = Gateway.sendVT(request, merchantId, baseUrl);
             return response;
         }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.flutterwave.util;
 
 import com.flutterwave.requests.AccountRequest;
@@ -20,11 +15,14 @@ import javax.crypto.NoSuchPaddingException;
  */
 public class RequestHardner {
 
-    TripleDES tripleDes;
+    private final TripleDES tripleDes;
 
-    public MVVARequest MVVACardAPIHardner(MVVARequest mo, String key) throws BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException {
+    public RequestHardner(String apiKey) {
+        tripleDes = new TripleDES(apiKey);
+    }
+
+    public MVVARequest MVVACardAPIHardner(MVVARequest mo) throws BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException {
         MVVARequest mvo = new MVVARequest();
-        tripleDes = new TripleDES(key);
 
         mvo.setCardno(tripleDes.harden(mo.getCardno()));
         mvo.setAmount(tripleDes.harden(mo.getAmount()));
@@ -51,17 +49,15 @@ public class RequestHardner {
 
     }
 
-    public AccountRequest accountAPIHardner(AccountRequest rcr, String key)throws BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException {
-
+    public AccountRequest accountAPIHardner(AccountRequest rcr)throws BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException {
         AccountRequest ro = new AccountRequest();
-        tripleDes = new TripleDES(key);
-        
-        ro.setAccountNumber(tripleDes.soften(rcr.getAccountNumber()));
-        ro.setAccountToken(tripleDes.soften(rcr.getAccountToken()));
-        ro.setBillingAmount(tripleDes.soften(rcr.getBillingAmount()));
-        ro.setDebitNarration(tripleDes.soften(rcr.getDebitNarration()));
-        ro.setOtp(tripleDes.soften(rcr.getOtp()));
-        ro.setReference(tripleDes.soften(rcr.getReference()));
+
+        ro.setAccountNumber(tripleDes.harden(rcr.getAccountNumber()));
+        ro.setAccountToken(tripleDes.harden(rcr.getAccountToken()));
+        ro.setBillingAmount(tripleDes.harden(rcr.getBillingAmount()));
+        ro.setDebitNarration(tripleDes.harden(rcr.getDebitNarration()));
+        ro.setOtp(tripleDes.harden(rcr.getOtp()));
+        ro.setReference(tripleDes.harden(rcr.getReference()));
 
         return ro;
     }

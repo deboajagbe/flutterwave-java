@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.flutterwave.requests;
 
 /**
@@ -31,8 +26,8 @@ public class AccountRequest {
         return merchantid;
     }
 
-    public void setMerchantid(String merchantid) {
-        this.merchantid = merchantid;
+    public void setMerchantid(String merchantId) {
+        this.merchantid = merchantId;
     }
 
     public String getOtp() {
@@ -55,8 +50,8 @@ public class AccountRequest {
         return debitNarration;
     }
 
-    public void setDebitNarration(String debitnarration) {
-        this.debitNarration = debitnarration;
+    public void setDebitNarration(String debitNarration) {
+        this.debitNarration = debitNarration;
     }
 
     public String getAccountToken() {
@@ -71,9 +66,7 @@ public class AccountRequest {
         return billingAmount;
     }
 
-    public void setBillingAmount(String billingamount) {
-        this.billingAmount = billingamount;
+    public void setBillingAmount(String billingAmount) {
+        this.billingAmount = billingAmount;
     }
-    
-    
 }

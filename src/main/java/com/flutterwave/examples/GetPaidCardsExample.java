@@ -25,11 +25,10 @@ import javax.crypto.NoSuchPaddingException;
  * @author josepholaoye
  */
 public class GetPaidCardsExample {
-
-    MVVARequest request;
+    private static final Logger logger = Logger.getLogger(GetPaidCardsExample.class.getName());
 
     public GetPaidCardsExample() {
-        request = new MVVARequest();
+        MVVARequest request = new MVVARequest();
         request.setAmount("1000.00");
         request.setAuthmodel("NOAUTH");
         request.setCardno("5060990580000217499");
@@ -45,10 +44,10 @@ public class GetPaidCardsExample {
         try {
             GetPaidCards getPaidCards = new GetPaidCards("OqjBHslUGvv6wSViNCCB", "lZBBPwc3kM", "http://staging1flutterwave.co:8080");
             MVVAResponse payWithCardDetails = getPaidCards.payWithCardDetails(request);
-            String responseCode = payWithCardDetails.getResponseCode();
-            Logger.getLogger(GetPaidCardsExample.class.getName()).log(Level.INFO, responseCode);
+            logger.log(Level.INFO, payWithCardDetails.getStatus());
+            logger.log(Level.INFO, payWithCardDetails.getResponseCode());
         } catch (EmptyKeyException | InvalidRequestObjectException | BadPaddingException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | IOException | URISyntaxException ex) {
-            Logger.getLogger(GetPaidCardsExample.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }
     }
 

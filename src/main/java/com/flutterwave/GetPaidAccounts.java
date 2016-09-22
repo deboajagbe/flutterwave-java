@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.flutterwave;
 
 import com.flutterwave.exceptions.EmptyKeyException;
@@ -39,6 +34,7 @@ public class GetPaidAccounts {
         this.apiKey = apiKey;
         this.merchantId = merchantId;
         this.baseUrl = baseUrl;
+        this.hardner = new RequestHardner(apiKey);
     }
 
     public AccountResponse initiate(AccountRequest request) throws InvalidRequestObjectException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, IOException, URISyntaxException {
@@ -48,7 +44,7 @@ public class GetPaidAccounts {
             if (!valid) {
                 throw new InvalidRequestObjectException();
             } else {
-                request = hardner.accountAPIHardner(request, apiKey);
+                request = hardner.accountAPIHardner(request);
                 response = Gateway.sendAccountInitiate(request, merchantId, baseUrl);
                 return response;
             }
@@ -63,7 +59,7 @@ public class GetPaidAccounts {
             if (!valid) {
                 throw new InvalidRequestObjectException();
             } else {
-                request = hardner.accountAPIHardner(request, apiKey);
+                request = hardner.accountAPIHardner(request);
                 response = Gateway.sendAccountValidate(request, merchantId, baseUrl);
                 return response;
             }
@@ -78,7 +74,7 @@ public class GetPaidAccounts {
             if (!valid) {
                 throw new InvalidRequestObjectException();
             } else {
-                request = hardner.accountAPIHardner(request, apiKey);
+                request = hardner.accountAPIHardner(request);
                 response = Gateway.sendAccountCharge(request, merchantId, baseUrl);
                 return response;
             }
