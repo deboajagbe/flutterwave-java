@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GetPaidCardsExample {
-    private static final Logger logger = Logger.getLogger(GetPaidCardsExample.class.getName());
+    private static final Logger LOG = Logger.getLogger(GetPaidCardsExample.class.getName());
 
     public GetPaidCardsExample() {
         MVVARequest request = new MVVARequest();
@@ -29,10 +29,10 @@ public class GetPaidCardsExample {
         try {
             GetPaidCards getPaidCards = new GetPaidCards("OqjBHslUGvv6wSViNCCB", "lZBBPwc3kM", "http://staging1flutterwave.co:8080");
             MVVAResponse payWithCardDetails = getPaidCards.payWithCardDetails(request);
-            logger.log(Level.INFO, payWithCardDetails.getStatus());
-            logger.log(Level.INFO, payWithCardDetails.getResponseCode());
+            LOG.log(Level.INFO, payWithCardDetails.getStatus());
+            LOG.log(Level.INFO, payWithCardDetails.getResponseCode());
         } catch (EmptyKeyException | InvalidRequestObjectException ex) {
-            logger.log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         }
     }
 
