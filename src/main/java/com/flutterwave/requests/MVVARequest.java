@@ -1,30 +1,57 @@
 package com.flutterwave.requests;
 
 /**
- *
- * @author josepholaoye
+ * Tokenize & Charge
+ * <p>
+ * <a href="http://docs.flutterwave.com/card-payments/">Card Payments</a>
+ * All parameters except for merchantid should be encrypted with the API key using the TripleDES algorithm.
+ * The JSON Object should look like the sample below.
+ * {
+ * "amount": "Encrypted Amount",
+ * "authmodel": "Encrypted Authmodel (PIN | BVN | RANDOM_DEBIT | VBVSECURECODE | NOAUTH)",
+ * "cardno": "Encrypted Card Number",
+ * "currency": "Encrypted Currency",
+ * "custid": "Encrypted CustID",
+ * "country": "(Optional: Default is NG, see below for other options) Encrypted Country",
+ * "cvv": "Encrypted CVV",
+ * "pin": "(Optional:Only needed where authmodel is PIN) Encrypted PIN",
+ * "bvn": "(Optional:Only needed where authmodel is BVN) Encrypted BVN",
+ * "cardtype":" (Optional: Only needed where card is a Diamond Bank card) Encrypted CardType (Diamond) ",
+ * "expirymonth": "Encrypted Expiry Month",
+ * "expiryyear": "Encrypted Expiry Year",
+ * "merchantid": "Merchant Key",
+ * "narration": "Encrypted Narration",
+ * "responseurl": "(Optional:Only needed where authmodel is VBVSECURECODE) Encrypted Response URL"
+ * }
  */
 public class MVVARequest {
-
     private String amount;
     private String currency;
     private String chargetoken;
     private String custid;
+    /** Encrypted Card Number */
     private String cardno;
+    /** Encrypted Narration */
     private String narration;
     private String expirymonth;
     private String expiryyear;
+    /** Optional:Only needed where authmodel is PIN) Encrypted PIN */
     private String pin;
     private String cvv;
+    /** Optional:Only needed where authmodel is BVN) Encrypted BVN */
     private String bvn;
     private String validateoption;
     private String otp;
     private String otptransactionidentifier;
     private String merchantid;
+    /** Encrypted Authmodel (PIN | BVN | RANDOM_DEBIT | VBVSECURECODE | NOAUTH) */
     private String authmodel;
+    /** Optional:Only needed where authmodel is VBVSECURECODE) Encrypted Response URL */
     private String responseurl;
     private String trxreference;
+    /** Optional: Only needed where card is a Diamond Bank card) Encrypted CardType (Diamond) */
     private String cardtype;
+    /** Optional: Default is NG, see below for other options) Encrypted Country */
     private String country;
     private String trxauthorizeid;
 

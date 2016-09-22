@@ -7,19 +7,7 @@ import com.flutterwave.response.AccountResponse;
 import com.flutterwave.util.Gateway;
 import com.flutterwave.util.RequestHardner;
 import com.flutterwave.util.validators.AccountValidator;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
-/**
- *
- * @author josepholaoye
- */
 public class GetPaidAccounts {
 
     private String apiKey;
@@ -37,7 +25,7 @@ public class GetPaidAccounts {
         this.hardner = new RequestHardner(apiKey);
     }
 
-    public AccountResponse initiate(AccountRequest request) throws InvalidRequestObjectException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, IOException, URISyntaxException {
+    public AccountResponse initiate(AccountRequest request) throws InvalidRequestObjectException {
         {
             AccountResponse response;
             boolean valid = AccountValidator.validate(request);
@@ -51,8 +39,8 @@ public class GetPaidAccounts {
 
         }
     }
-    
-    public AccountResponse validate(AccountRequest request) throws InvalidRequestObjectException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, IOException, URISyntaxException {
+
+    public AccountResponse validate(AccountRequest request) throws InvalidRequestObjectException {
         {
             AccountResponse response;
             boolean valid = AccountValidator.validate(request);
@@ -66,8 +54,8 @@ public class GetPaidAccounts {
 
         }
     }
-    
-    public AccountResponse charge(AccountRequest request) throws InvalidRequestObjectException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, IOException, URISyntaxException {
+
+    public AccountResponse charge(AccountRequest request) throws InvalidRequestObjectException {
         {
             AccountResponse response;
             boolean valid = AccountValidator.validate(request);

@@ -2,17 +2,7 @@ package com.flutterwave.util;
 
 import com.flutterwave.requests.AccountRequest;
 import com.flutterwave.requests.MVVARequest;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
-/**
- *
- * @author josepholaoye
- */
 public class RequestHardner {
 
     private final TripleDES tripleDes;
@@ -21,7 +11,7 @@ public class RequestHardner {
         tripleDes = new TripleDES(apiKey);
     }
 
-    public MVVARequest MVVACardAPIHardner(MVVARequest mo) throws BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException {
+    public MVVARequest MVVACardAPIHardner(MVVARequest mo) {
         MVVARequest mvo = new MVVARequest();
 
         mvo.setCardno(tripleDes.harden(mo.getCardno()));
@@ -45,11 +35,11 @@ public class RequestHardner {
         mvo.setTrxreference(tripleDes.harden(mo.getTrxreference()));
         mvo.setCardtype(tripleDes.harden(mo.getCardtype()));
         mvo.setCountry(tripleDes.harden(mo.getCountry()));
-        return mvo;
 
+        return mvo;
     }
 
-    public AccountRequest accountAPIHardner(AccountRequest rcr)throws BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException {
+    public AccountRequest accountAPIHardner(AccountRequest rcr) {
         AccountRequest ro = new AccountRequest();
 
         ro.setAccountNumber(tripleDes.harden(rcr.getAccountNumber()));

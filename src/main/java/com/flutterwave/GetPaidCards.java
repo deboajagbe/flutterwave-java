@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.flutterwave;
 
 import com.flutterwave.exceptions.EmptyKeyException;
@@ -12,21 +7,8 @@ import com.flutterwave.response.MVVAResponse;
 import com.flutterwave.util.Gateway;
 import com.flutterwave.util.RequestHardner;
 import com.flutterwave.util.validators.MVVAValidator;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
-/**
- *
- * @author josepholaoye
- */
 public class GetPaidCards {
-
     private String apiKey;
     private String merchantId;
     private String baseUrl;
@@ -42,7 +24,7 @@ public class GetPaidCards {
         hardner = new RequestHardner(apiKey);
     }
 
-    public MVVAResponse payWithCardDetails(MVVARequest request) throws InvalidRequestObjectException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, IOException, URISyntaxException {
+    public MVVAResponse payWithCardDetails(MVVARequest request) throws InvalidRequestObjectException {
         MVVAResponse response;
         boolean valid = MVVAValidator.validate(request);
         if (!valid) {
@@ -54,7 +36,7 @@ public class GetPaidCards {
         }
     }
 
-    public MVVAResponse payWithToken(MVVARequest request) throws InvalidRequestObjectException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, URISyntaxException, IOException {
+    public MVVAResponse payWithToken(MVVARequest request) throws InvalidRequestObjectException {
         MVVAResponse response;
         boolean valid = MVVAValidator.validate(request);
         if (!valid) {
@@ -66,7 +48,7 @@ public class GetPaidCards {
         }
     }
 
-    public MVVAResponse validate(MVVARequest request) throws InvalidRequestObjectException, BadPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, URISyntaxException, IOException {
+    public MVVAResponse validate(MVVARequest request) throws InvalidRequestObjectException {
         MVVAResponse response;
         boolean valid = MVVAValidator.validate(request);
         if (!valid) {

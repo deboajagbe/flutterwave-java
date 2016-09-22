@@ -4,10 +4,6 @@ import com.flutterwave.requests.AccountRequest;
 import com.flutterwave.requests.MVVARequest;
 import com.flutterwave.response.AccountResponse;
 import com.flutterwave.response.MVVAResponse;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -16,17 +12,15 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- *
- * @author josepholaoye
- */
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Gateway {
     private static final Logger logger = Logger.getLogger(Gateway.class.getName());
 
-    public static MVVAResponse sendMCD(MVVARequest request, String merchantId, String baseUrl) throws URISyntaxException, IOException, JSONException {
+    public static MVVAResponse sendMCD(MVVARequest request, String merchantId, String baseUrl) {
         String url = baseUrl.concat("/pwc/rest/card/mvva/pay");
         JSONObject requestJSON = new JSONObject();
         requestJSON.putOpt("amount", request.getAmount());
@@ -50,7 +44,7 @@ public class Gateway {
         return response;
     }
 
-    public static MVVAResponse sendMT(MVVARequest request, String merchantId, String baseUrl) throws URISyntaxException, IOException, JSONException {
+    public static MVVAResponse sendMT(MVVARequest request, String merchantId, String baseUrl) {
         String url = baseUrl.concat("/pwc/rest/card/mvva/pay");
         JSONObject requestJSON = new JSONObject();
         requestJSON.putOpt("amount", request.getAmount());
@@ -67,7 +61,7 @@ public class Gateway {
         return response;
     }
 
-    public static MVVAResponse sendVT(MVVARequest request, String merchantId, String baseUrl) throws URISyntaxException, IOException, JSONException {
+    public static MVVAResponse sendVT(MVVARequest request, String merchantId, String baseUrl) {
         String url = baseUrl.concat("/pwc/rest/card/mvva/pay");
         JSONObject requestJSON = new JSONObject();
         requestJSON.putOpt("otp", request.getOtp());
@@ -81,7 +75,7 @@ public class Gateway {
         return response;
     }
 
-    public static AccountResponse sendAccountInitiate(AccountRequest request, String merchantId, String baseUrl) throws URISyntaxException, IOException, JSONException {
+    public static AccountResponse sendAccountInitiate(AccountRequest request, String merchantId, String baseUrl) {
         String url = baseUrl.concat("/pwc/rest/recurrent/account");
         JSONObject requestJSON = new JSONObject();
         requestJSON.putOpt("accountNumber", request.getAccountNumber());
@@ -92,7 +86,7 @@ public class Gateway {
         return response;
     }
 
-    public static AccountResponse sendAccountValidate(AccountRequest request, String merchantId, String baseUrl) throws URISyntaxException, IOException, JSONException {
+    public static AccountResponse sendAccountValidate(AccountRequest request, String merchantId, String baseUrl) {
         String url = baseUrl.concat("/pwc/rest/recurrent/account/validate");
         JSONObject requestJSON = new JSONObject();
         requestJSON.putOpt("accountNumber", request.getAccountNumber());
@@ -107,7 +101,7 @@ public class Gateway {
         return response;
     }
 
-    public static AccountResponse sendAccountCharge(AccountRequest request, String merchantId, String baseUrl) throws URISyntaxException, IOException, JSONException {
+    public static AccountResponse sendAccountCharge(AccountRequest request, String merchantId, String baseUrl) {
         String url = baseUrl.concat("/pwc/rest/recurrent/account/charge");
         JSONObject requestJSON = new JSONObject();
         requestJSON.putOpt("accountToken", request.getAccountNumber());
@@ -120,22 +114,26 @@ public class Gateway {
         return response;
     }
 
-    private static JSONObject sendRequest(String url, JSONObject requestJSON) throws URISyntaxException, IOException {
-        logger.log(Level.INFO, requestJSON.toString());
-        HttpClient client = HttpClientBuilder.create().build();
-        URIBuilder builder = new URIBuilder(url);
-        HttpPost post = new HttpPost(builder.build());
-        post.setHeader("Content-Type", "application/json");
-        post.setEntity(new StringEntity(requestJSON.toString()));
-        HttpResponse httpResponse = client.execute(post);
-        HttpEntity responseEntity = httpResponse.getEntity();
-        if (responseEntity != null) {
-            String output = EntityUtils.toString(responseEntity);
-            logger.log(Level.INFO, output);
-            JSONObject details = new JSONObject(output);
-            return details;
-        } else {
-            return null;
+    private static JSONObject sendRequest(String url, JSONObject requestJSON) {
+        try {
+            logger.log(Level.INFO, requestJSON.toString());
+            HttpClient client = HttpClientBuilder.create().build();
+            URIBuilder builder = new URIBuilder(url);
+            HttpPost post = new HttpPost(builder.build());
+            post.setHeader("Content-Type", "application/json");
+            post.setEntity(new StringEntity(requestJSON.toString()));
+            HttpResponse httpResponse = client.execute(post);
+            HttpEntity responseEntity = httpResponse.getEntity();
+            if (responseEntity != null) {
+                String output = EntityUtils.toString(responseEntity);
+                logger.log(Level.INFO, output);
+                JSONObject details = new JSONObject(output);
+                return details;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
