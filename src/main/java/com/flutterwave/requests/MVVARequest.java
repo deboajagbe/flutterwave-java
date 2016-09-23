@@ -28,6 +28,7 @@ public class MVVARequest {
     private String amount;
     private String currency;
     private String chargetoken;
+    /** Encrypted Transaction identifier (any alpha-numeric string of not more than 20 characters would do) */
     private String custid;
     /** Encrypted Card Number */
     private String cardno;
